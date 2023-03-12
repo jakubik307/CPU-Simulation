@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Main {
-    public final static int simulationSize = 1000;
+    public final static int simulationSize = 10000;
     public final static int avgTimePerRequest = 30;
 
     private static final ArrayList<Request> originalRequests = new ArrayList<>();
@@ -11,6 +11,10 @@ public class Main {
         generateRequestQueue();
 
         Algorithm algorithm = new FCFS();
+
+        algorithm.startSimulation(originalRequests);
+
+        algorithm = new SJF();
 
         algorithm.startSimulation(originalRequests);
     }

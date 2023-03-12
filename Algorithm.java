@@ -31,7 +31,7 @@ public abstract class Algorithm {
         }
     }
 
-    protected void calculateWaitingTime() {
+    protected void calculateWaitingTimeInQueue() {
         for (Request request : activeQueue) {
             request.setWaitingTime(request.getWaitingTime() + 1);
         }

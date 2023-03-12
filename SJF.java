@@ -5,34 +5,31 @@ public class SJF extends Algorithm {
     @Override
     public void startSimulation(ArrayList<Request> requests) {
         copyQueue(requests);
-        simulationQueue.sort(Comparator.comparing(Request::getArrivalTime));//TODO delete?
 
         while (finishedRequests < Main.simulationSize) {
 
             addToActiveQueue();
 
             //Add request from queue to processing
-            if (activeQueue.size() != 0 && activeRequest == null) {
+            if (activeQueue.size() != 0) {
                 activeQueue.sort(Comparator.comparing(Request::getTimeToComplete));
+
+                if (activeRequest != activeQueue.get(0)) {
+                    requestSwaps++;
+                }
+
                 activeRequest = activeQueue.get(0);
-                activeQueue.remove(activeQueue.get(0));
-                requestSwaps++;
-            }
 
-            //Processing active request
-            if (activeRequest != null) {
-                activeRequest.setTimeToComplete(activeRequest.getTimeToComplete() - 1);
-
-                if (activeRequest.getTimeToComplete() == 0) {
-                    activeRequest = null;
-                    finishedRequests++;
-                } else {
-
+                if (activeRequest != null) {
+                    activeRequest.setTimeToComplete(activeRequest.getTimeToComplete() - 1);
+                    if (activeRequest.getTimeToComplete() == 0) {
+                        activeQueue.remove(activeRequest);
+                        finishedRequests++;
+                    }
                 }
             }
 
-            calculateWaitingTime();
-
+            calculateWaitingTimeInQueue();
 
             currentTime++;
         }

@@ -1,11 +1,9 @@
 import java.util.ArrayList;
-import java.util.Comparator;
 
 public class FCFS extends Algorithm {
     @Override
     public void startSimulation(ArrayList<Request> requests) {
         copyQueue(requests);
-        simulationQueue.sort(Comparator.comparing(Request::getArrivalTime));//TODO delete?
 
         while (finishedRequests < Main.simulationSize) {
 
@@ -19,7 +17,7 @@ public class FCFS extends Algorithm {
             }
 
             //Processing active request
-            if (activeRequest != null) {
+            else if (activeRequest != null) {
                 activeRequest.setTimeToComplete(activeRequest.getTimeToComplete() - 1);
 
                 if (activeRequest.getTimeToComplete() == 0) {
@@ -28,11 +26,7 @@ public class FCFS extends Algorithm {
                 }
             }
 
-            //Calculate waiting time
-            for (Request request : activeQueue) {
-                request.setWaitingTime(request.getWaitingTime() + 1);
-            }
-
+            calculateWaitingTimeInQueue();
 
             currentTime++;
         }
@@ -41,6 +35,4 @@ public class FCFS extends Algorithm {
         printResults();
         System.out.println("----------");
     }
-
-
 }
