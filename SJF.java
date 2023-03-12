@@ -38,7 +38,5 @@ public class SJF extends Algorithm {
         printResults();
         System.out.println("----------");
     }
-
-
 }
 
