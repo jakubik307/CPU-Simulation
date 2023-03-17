@@ -1,8 +1,8 @@
 public class Request {
 
-    private int timeToComplete;
     private final int arrivalTime;
-    private int pickUpTime;//TODO look if you need it
+    private int timeToComplete;
+    private int pickUpTime;
     private int waitingTime;
 
     public Request(int timeToComplete, int arrivalTime) {

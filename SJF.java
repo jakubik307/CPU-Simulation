@@ -4,6 +4,8 @@ import java.util.Comparator;
 public class SJF extends Algorithm {
     @Override
     public void startSimulation(ArrayList<Request> requests) {
+
+        initialState();
         copyQueue(requests);
 
         while (finishedRequests < Main.simulationSize) {
@@ -19,6 +21,10 @@ public class SJF extends Algorithm {
                 }
 
                 activeRequest = activeQueue.get(0);
+
+                if (activeRequest.getPickUpTime() == 0) {
+                    activeRequest.setPickUpTime(currentTime - activeRequest.getArrivalTime());
+                }
 
                 if (activeRequest != null) {
                     activeRequest.setTimeToComplete(activeRequest.getTimeToComplete() - 1);
