@@ -35,9 +35,9 @@ public abstract class Algorithm {
     }
 
     public void printResults() {
-        int totalWaitingTime = 0;
+        long totalWaitingTime = 0;
         int maxWaitingTime = 0;
-        int totalPickUpTime = 0;
+        long totalPickUpTime = 0;
         int maxPickUpTime = 0;
 
         simulationQueue.sort(Comparator.comparing(Request::getArrivalTime));

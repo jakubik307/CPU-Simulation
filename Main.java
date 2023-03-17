@@ -3,7 +3,7 @@ import java.util.Comparator;
 import java.util.Random;
 
 public class Main {
-    public final static int simulationSize = 1000;// TODO: 16/03/2023 modifiable
+    public final static int simulationSize = 1000000;// TODO: 16/03/2023 modifiable
     public final static int avgTimePerRequest = 50;// TODO: 16/03/2023 modifiable
     public final static int timeInterval = 6;// TODO: 16/03/2023 modifiable
 
@@ -13,10 +13,10 @@ public class Main {
         generateRequestQueue();
 
         Algorithm algorithm = new FCFS();
-        algorithm.startSimulation(originalRequests);
-
-        algorithm = new SJF();
-        algorithm.startSimulation(originalRequests);
+//        algorithm.startSimulation(originalRequests);
+//
+//        algorithm = new SJF();
+//        algorithm.startSimulation(originalRequests);
 
         algorithm = new RR();
         ((RR) algorithm).setTimeInterval(timeInterval);
