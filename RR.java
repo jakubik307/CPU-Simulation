@@ -11,7 +11,7 @@ public class RR extends Algorithm {
         copyQueue(requests);
 
         while (finishedRequests < Main.simulationSize) {
-            int cycleTime = 0;
+            cycleTime = 0;
 
             addToActiveQueue();
             previousRefreshTime = currentTime;

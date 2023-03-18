@@ -9,11 +9,13 @@ public class SJF extends Algorithm {
         copyQueue(requests);
 
         while (finishedRequests < Main.simulationSize) {
+            cycleTime = 1;
 
             addToActiveQueue();
+            previousRefreshTime = currentTime;
 
             //Add request from queue to processing
-            if (activeQueue.size() != 0) {
+            if (activeQueue.size() > 0) {
                 activeQueue.sort(Comparator.comparing(Request::getTimeToComplete));
 
                 if (activeRequest != activeQueue.get(0)) {
@@ -22,6 +24,7 @@ public class SJF extends Algorithm {
 
                 activeRequest = activeQueue.get(0);
 
+                //PickUp time
                 if (activeRequest.getPickUpTime() == 0) {
                     activeRequest.setPickUpTime(currentTime - activeRequest.getArrivalTime());
                 }
@@ -35,7 +38,7 @@ public class SJF extends Algorithm {
                 }
             }
 
-            calculateWaitingTimeInQueue();
+            calculateWaitingTimeInQueue(1);
 
             currentTime++;
         }

@@ -5,9 +5,11 @@ public abstract class Algorithm {
     protected int currentTime;
     protected int requestSwaps;
     protected int finishedRequests;
+    protected int cycleTime;
     protected ArrayList<Request> simulationQueue;
     protected ArrayList<Request> activeQueue;
     protected Request activeRequest;
+    protected int previousRefreshTime;
 
     public Algorithm() {
         initialState();
@@ -22,15 +24,16 @@ public abstract class Algorithm {
 
     protected void addToActiveQueue() {
         for (Request request : simulationQueue) {
-            if (currentTime == request.getArrivalTime()) {
+            if (request.getArrivalTime() > previousRefreshTime && request.getArrivalTime() <= currentTime) {
                 activeQueue.add(request);
+                request.setWaitingTime(currentTime - request.getArrivalTime());
             }
         }
     }
 
-    protected void calculateWaitingTimeInQueue() {
+    protected void calculateWaitingTimeInQueue(int time) {
         for (Request request : activeQueue) {
-            request.setWaitingTime(request.getWaitingTime() + 1);
+            request.setWaitingTime(request.getWaitingTime() + time);
         }
     }
 
@@ -66,6 +69,8 @@ public abstract class Algorithm {
         this.currentTime = 0;
         this.requestSwaps = 0;
         this.finishedRequests = 0;
+        this.cycleTime = 0;
+        this.previousRefreshTime = 0;
         this.simulationQueue = new ArrayList<>();
         this.activeQueue = new ArrayList<>();
         this.activeRequest = null;
