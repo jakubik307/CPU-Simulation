@@ -8,34 +8,19 @@ public class FCFS extends Algorithm {
         copyQueue(requests);
 
         while (finishedRequests < Main.simulationSize) {
-            cycleTime = 1;
+            for (Request request : simulationQueue) {
+                currentTime = Math.max(request.getArrivalTime(), previousRefreshTime);
 
-            addToActiveQueue();
-            previousRefreshTime = currentTime;
+                request.setWaitingTime(currentTime - request.getArrivalTime());
+                request.setPickUpTime(request.getWaitingTime());
 
-            //Add request from queue to processing
-            if (activeQueue.size() > 0 && activeRequest == null) {
-                activeRequest = activeQueue.get(0);
-                activeQueue.remove(activeRequest);
+                previousRefreshTime = currentTime + request.getTimeToComplete();
+
+                request.setTimeToComplete(0);
+
                 requestSwaps++;
-            }
-
-            //Processing active request
-            if (activeRequest != null) {
-                //PickUpTime
-                if (activeRequest.getPickUpTime() == 0) {
-                    activeRequest.setPickUpTime(currentTime - activeRequest.getArrivalTime());
-                }
-
-                cycleTime = activeRequest.getTimeToComplete();
-                activeRequest.setTimeToComplete(0);
-                activeRequest = null;
                 finishedRequests++;
             }
-
-            calculateWaitingTimeInQueue(cycleTime);
-
-            currentTime += cycleTime;
         }
 
         System.out.println("FCFS");
