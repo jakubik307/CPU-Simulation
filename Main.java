@@ -3,9 +3,11 @@ import java.util.Comparator;
 import java.util.Random;
 
 public class Main {
-    public final static int simulationSize = 1000000;// TODO: 16/03/2023 modifiable
+    public final static int simulationSize = 10000;// TODO: 16/03/2023 modifiable
     public final static int avgTimePerRequest = 30;// TODO: 16/03/2023 modifiable
-    public final static int timeInterval = 20;// TODO: 16/03/2023 modifiable
+    public final static int timeInterval = 10;// TODO: 16/03/2023 modifiable
+    public final static int starvationTime = 100;// TODO: 16/03/2023 modifiable
+
 
     private static final ArrayList<Request> originalRequests = new ArrayList<>();
 
@@ -15,8 +17,8 @@ public class Main {
         Algorithm algorithm = new FCFS();
         algorithm.startSimulation(originalRequests);
 
-//        algorithm = new SJF();
-//        algorithm.startSimulation(originalRequests);
+        algorithm = new SJF();
+        algorithm.startSimulation(originalRequests);
 
         algorithm = new RR();
         ((RR) algorithm).setTimeInterval(timeInterval);
@@ -56,5 +58,3 @@ public class Main {
         return new Request(timeToComplete, arrivalTime);
     }
 }
-
-// TODO: 16/03/2023 ilość zagłodzonych procesów 

@@ -42,6 +42,7 @@ public abstract class Algorithm {
         int maxWaitingTime = 0;
         long totalPickUpTime = 0;
         int maxPickUpTime = 0;
+        int starvedNumber = 0;
 
         simulationQueue.sort(Comparator.comparing(Request::getArrivalTime));
 
@@ -56,6 +57,10 @@ public abstract class Algorithm {
             if (request.getPickUpTime() > maxPickUpTime) {
                 maxPickUpTime = request.getPickUpTime();
             }
+
+            if (request.getWaitingTime() > Main.starvationTime) {
+                starvedNumber++;
+            }
         }
 
         System.out.println("Average waiting time: " + totalWaitingTime / simulationQueue.size());
@@ -63,6 +68,7 @@ public abstract class Algorithm {
         System.out.println("Average pick up time: " + totalPickUpTime / simulationQueue.size());
         System.out.println("Max pick up time: " + maxPickUpTime);
         System.out.println("No. of request swaps: " + requestSwaps);
+        System.out.println("No. of starved requests: " + starvedNumber);
     }
 
     public void initialState() {
